@@ -46,13 +46,17 @@ In a terminal or command prompt on your machine, run the following command
 git clone https://github.com/FishmanDefender/EvoSim.git
 ```
 
-This will create a git directory on your local machine with the .git folder which contains the full commit history. Navigate to `EvoSim/src/` and run the following command
+This will create a git directory on your local machine with the .git folder which contains the full commit history.
+
+To run EvoSim, navigate to `EvoSim/src/` and run the following command
 
 ```bash
 python main.py
 ```
 
-This will create a directory called `EvoSim/data/`, run the simulation with all of the default parameters, and play an animation of the data that was just generated. Feel free to modify parameters and rerun EvoSim using the same command. WARNING: EvoSim currently overwrites files when generating a data file that shares a filename. If you wish to save multiple runs of data, you have to manually rename the file after each run.
+This will create a directory called `EvoSim/data/`, run the simulation with all of the default parameters, and play an animation of the data that was just generated. Feel free to modify parameters and rerun EvoSim using the same command.
+
+**WARNING:** EvoSim currently overwrites files when generating a data file that shares a filename. If you wish to save multiple runs of data, you have to manually rename the file after each run.
 
 ## Without Git
 
@@ -64,4 +68,6 @@ Once extracted, open a terminal or command prompt and navigate to `EvoSim/src`. 
 python main.py
 ```
 
-This will create a directory called `EvoSim/data/`, run the simulation with all of the default parameters, and play an animation of the data that was just generated. Feel free to modify parameters and rerun EvoSim using the same command. WARNING: EvoSim currently overwrites files when generating a data file that shares a filename. If you wish to save multiple runs of data, you have to manually rename the file after each run.
+This will create a directory called `EvoSim/data/`, run the simulation with all of the default parameters, and play an animation of the data that was just generated. Feel free to modify parameters and rerun EvoSim using the same command.
+
+**WARNING:** EvoSim currently overwrites files when generating a data file that shares a filename. If you wish to save multiple runs of data, you have to manually rename the file after each run.

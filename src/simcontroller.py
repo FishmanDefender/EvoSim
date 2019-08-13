@@ -77,8 +77,8 @@ class SimController:
 
     def blobs_multi(self):
 
-        use_fuel = 4
-        pause = 4
+        use_fuel = 2
+        pause = 2
         for bkey in list(self.blobs.keys()):
 
             blob = self.blobs[bkey]
@@ -121,6 +121,10 @@ class SimController:
     def get_nblobs(self):
 
         return len(self.blobs)
+
+    def get_nfood(self):
+
+        return len(self.food)
 
     def get_n_living_blobs(self):
 
