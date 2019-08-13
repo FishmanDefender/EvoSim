@@ -40,12 +40,10 @@ EvoSim is written in python 3.6. Be sure you have python 3.6 or later installed 
 
 ## With Git
 
-To download EvoSim, click on "Clone or Download" on this page and copy the URL to your clipboard.
-
 In a terminal or command prompt on your machine, run the following command
 
 ```bash
-git clone <PASTE URL HERE>
+git clone https://github.com/FishmanDefender/EvoSim.git
 ```
 
 This will create a git directory on your local machine with the .git folder which contains the full commit history. Navigate to `EvoSim/src/` and run the following command
