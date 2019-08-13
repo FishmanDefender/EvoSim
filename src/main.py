@@ -5,6 +5,7 @@ import numpy as np
 import datetime as dt
 import random
 import csv
+import os
 
 from simcontroller import SimController
 from animate import ani
@@ -15,6 +16,10 @@ def main(nblobs, nfood, maxtime, mapsize):
     '''
     This is the main function of the simulation. Run this to generate simulation data files.
     '''
+
+    if not os.path.exists('../data'):
+        print('Created ../data')
+        os.makedirs('../data')
 
     sim = SimController(nblobs, nfood, mapsize)
 
@@ -29,7 +34,7 @@ def main(nblobs, nfood, maxtime, mapsize):
 
         t = 0
         while sim.get_n_living_blobs() > 0 and t < maxtime:
-            print('Number of Blobs = ', sim.get_n_living_blobs(), '  Loop = ', t, end='\r')
+            print('Number of Blobs = ', sim.get_n_living_blobs(), '  Loop = ', t)
             sim.update()
             info = [sim.get_nblobs(), nfood]
             info.extend(sim.get_blob_info())
