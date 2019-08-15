@@ -42,6 +42,6 @@ def main(nblobs, nfood, maxtime, mapsize):
     return filename
 
 mapsize = 10
-# f = main(1, 50, 100000, mapsize)
-# ani(f, mapsize)
-ani('blob_data_2019-08-13_big.pickle', 10)
+f = main(1, 50, 200, mapsize)
+ani(f, mapsize)
+# ani('blob_data_2019-08-13_big.pickle', 10)
