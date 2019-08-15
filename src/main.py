@@ -10,6 +10,9 @@ import os
 from simcontroller import SimController
 from animate import ani
 
+
+# Making Testable code: https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters
+
 # random.seed('blob')
 
 def main(nblobs, nfood, maxtime, mapsize):
@@ -27,8 +30,8 @@ def main(nblobs, nfood, maxtime, mapsize):
     with open(filename, 'wb') as objf:
 
         t = 0
-        while sim.get_n_living_blobs() > 0 and t < maxtime:
-            print('Number of Blobs = ', sim.get_n_living_blobs(), '  Loop = ', t)
+        while sim.get_nblobs() > 0 and t < maxtime:
+            print('Number of Blobs = ', str(sim.get_nblobs()).rjust(3,'0'), '  Loop = ', t)
             sim.update()
             info = [sim.get_nblobs(), sim.get_nfood()]
             info.append(sim.get_blob_info())
@@ -39,6 +42,6 @@ def main(nblobs, nfood, maxtime, mapsize):
     return filename
 
 mapsize = 10
-f = main(100, 100, 200, mapsize)
-ani(f, mapsize)
-# ani('blob_data_2019-08-13.pickle', 10)
+# f = main(1, 50, 100000, mapsize)
+# ani(f, mapsize)
+ani('blob_data_2019-08-13_big.pickle', 10)

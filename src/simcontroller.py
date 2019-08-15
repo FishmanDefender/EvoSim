@@ -60,8 +60,9 @@ class SimController:
 
             if not blob.move(min_r, minth):
                 if not bkey in self.dead_blobs_index:
-                    print('Blob ', blob.get_id(), ' Starved')
+                    print('Blob ', str(blob.get_id()).rjust(4,'0'), ' Starved')
                     self.dead_blobs_index.append(bkey)
+                    del self.blobs[bkey]
                     continue
 
             food = self.food[mindex]
@@ -77,22 +78,20 @@ class SimController:
 
     def blobs_multi(self):
 
-        use_fuel = 2
-        pause = 2
+        use_fuel = 1.5
+        pause = 4
         for bkey in list(self.blobs.keys()):
 
             blob = self.blobs[bkey]
             if blob.get_fuel() > 2:
                 if not self.dead_blobs_index:
                     id = self.get_nblobs()+1
-                    self.blobs[id] = Blob(id, self.mapsize, blob.get_x(), blob.get_y())
+                    self.blobs[id] = Blob(id, self.mapsize, blob.get_x(), blob.get_y(), wait=pause)
                     blob.use_fuel(use_fuel)
-                    blob.set_wait(pause)
                 else:
                     id = self.dead_blobs_index.pop(0)
-                    self.blobs[id] = Blob(id, self.mapsize, blob.get_x(), blob.get_y())
+                    self.blobs[id] = Blob(id, self.mapsize, blob.get_x(), blob.get_y(), wait=pause)
                     blob.use_fuel(use_fuel)
-                    blob.set_wait(pause)
 
     def get_blob_info(self):
         '''

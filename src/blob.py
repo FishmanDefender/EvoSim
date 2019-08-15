@@ -11,7 +11,7 @@ class Blob:
 
     ##### CONSTRUCTOR #####
 
-    def __init__(self, id, mapsize, x=None, y=None):
+    def __init__(self, id, mapsize, x=None, y=None, wait=0):
 
         if x == None:
             self.x = ((2*random.random())-1)*mapsize
@@ -25,11 +25,11 @@ class Blob:
 
         self.id = id
         self.mapsize = mapsize
-        self.wait = 0
+        self.wait = wait
 
         self.move_speed = 0.1
         self.fuel = 1
-        self.hunger_modifier = 0.02
+        self.hunger_modifier = 0.01
 
     ##### PUBLIC METHODS #####
 
