@@ -11,7 +11,7 @@ class Blob:
     has a method for each blob action, and has instance variables that reflect the current state of the blob.
     '''
 
-    def __init__(self, dna, xpos, ypos, init_fuel = 10, exponent = 1.2, last_attack = 10):
+    def __init__(self, id,  dna, xpos, ypos, init_fuel = 10, exponent = 1.2, last_attack = 11):
         '''
         Creates a new blob creature using the passed DNA object at the location xpos and ypos.
         '''
@@ -21,6 +21,7 @@ class Blob:
         self.fuel = init_fuel
         self.x = xpos
         self.y = ypos
+        self.id = id
 
         self.exponent = exponent
 
@@ -31,12 +32,13 @@ class Blob:
         self.eat_param = self.dna.eat_param
         self.heal_param = self.dna.heal_param
         self.attack_damage = self.dna.attack_damage
+        self.craving = self.dna.craving
 
         ## Derived Parameters ##
         self.hp = self.max_hp
         self.base_fuel_cost = 0.1*self.max_hp
-        self.predator = self.dna.get_predator()
         self.food = (self.fuel**2)*self.max_hp
+        self.predator = (random.random() > self.dna.predator)
 
         ## Detected Parameters ##
         self.closest_food_theta = 0
@@ -46,6 +48,7 @@ class Blob:
         ## State Parameters ##
         self.is_target = False
         self.is_hunter = False
+        self.is_dead = False
         self.already_acted = False
 
         ## Counting Parameters ##
@@ -82,6 +85,17 @@ class Blob:
         food_obj.value -= value
         self.already_acted = True
 
+    def eat_corpse(self, blob_obj):
+        '''
+        Called by predators to eat a corpse.
+        '''
+
+        value = self.eat_param - 0.1*(self.eat_param**self.exponent)*self.base_fuel_cost
+        self.fuel += value
+        blob_obj.get_eaten(value)
+        self.already_acted = True
+
+
     def heal(self):
         '''
         Increases the health of the blobs after experiencing some damage. The rate is determined by self.heal_param.
@@ -114,6 +128,15 @@ class Blob:
         self.hunter_theta = np.arctan2((hunter_y - self.y), (hunter_x - self.x))
         self.last_attack = 0
 
+    def get_eaten(self, food_lost):
+        '''
+        Reduces the amount of food remaining on blob by amount 'food_lost'
+        '''
+
+        self.food -= food_lost
+        if self.food < 0:
+
+
     def reset_already_acted(self):
         '''
         Resets action counter so the blob will move next time step.
@@ -127,12 +150,21 @@ class Blob:
         '''
 
         if self.is_target:
-            if self.last_attack != 0:
+            if self.last_attack <= 10:
                 self.last_attack += 1
             elif self.last_attack < 0:
                 raise ValueError('last_attack somehow decreased')
             elif self.last_attack > 10:
-                self.last_attack = 0
                 self.is_target = False
+                self.hunter_theta = 0
+                self.hunter_r = 0
             else:
                 raise ValueError('last_attack is not a number')
+
+    def check_dead(self):
+        '''
+        Called every time step to update blob death state.
+        '''
+
+        if self.hp < 0:
+            self.is_dead = True
